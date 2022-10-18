@@ -67,6 +67,8 @@ export const Forecast5 = D.struct({
       }),
       visibility: D.number,
       pop: D.number, // probability of precipitation
+      //-- weather maps docs say these exist, but i don't
+      //-- see them in actual responses?
       // rain: D.number, // rain volume in last 3 hours (mm)
       // snow: D.number, // snow volume in last 3 hours
       // sys: D.string, // part of the day (n - night, d -day)
@@ -77,3 +79,21 @@ export const Forecast5 = D.struct({
 })
 
 export type Forecast5 = D.TypeOf<typeof Forecast5>
+
+export const WeatherCache = D.struct({
+  fetched: D.number,
+  location: Geo,
+  forecast: Forecast5,
+})
+
+export type WeatherCache = D.TypeOf<typeof WeatherCache>
+
+export type ForecastDay = {
+  unit: 'kelvin' | 'celsius' | 'fahrenheit'
+  temp_max: number
+  temp_min: number
+  temps: {
+    time: string
+    temp: string
+  }[]
+}
